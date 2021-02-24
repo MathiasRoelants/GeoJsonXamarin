@@ -20,7 +20,6 @@ namespace GeoJson.iOS.Renderers
     {
         private MKMapView _nativeMap;
         private Dictionary<Polygon, MKPolygon> _polygons = new Dictionary<Polygon, MKPolygon>();
-        private Dictionary<Polygon, MKPolygon> _selectedPolygons = new Dictionary<Polygon, MKPolygon>();
 
         public MapView FormsMapView { get; private set; }
 
@@ -86,30 +85,6 @@ namespace GeoJson.iOS.Renderers
             foreach (Feature feature in mapView.Features.Features)
             {
                 CreatePolygonFor(feature);
-            }
-        }
-
-        private void MapTapped(MKMapView mapView, UITapGestureRecognizer tappedGesture)
-        {
-            var mapview = tappedGesture.View as MKMapView;
-
-            CLLocationCoordinate2D coord2D = mapView.ConvertPoint(tappedGesture.LocationInView(mapView), mapView);
-            var mapPoint = MKMapPoint.FromCoordinate(coord2D);
-
-            foreach (IMKOverlay overlay in mapview.Overlays)
-            {
-                var renderer = (MKOverlayPathRenderer)mapview.RendererForOverlay(overlay);
-                if (renderer == null)
-                {
-                    return;
-                }
-
-                var polyTouched = renderer.Path.ContainsPoint(renderer.PointForMapPoint(mapPoint), true);
-
-                if (polyTouched)
-                {
-                    //Do something
-                }
             }
         }
 
@@ -197,6 +172,30 @@ namespace GeoJson.iOS.Renderers
                 FillColor = UIColor.Red.ColorWithAlpha(0.5f),
                 LineWidth = 3f
             };
+        }
+
+        private void MapTapped(MKMapView mapView, UITapGestureRecognizer tappedGesture)
+        {
+            var mapview = tappedGesture.View as MKMapView;
+
+            CLLocationCoordinate2D coord2D = mapView.ConvertPoint(tappedGesture.LocationInView(mapView), mapView);
+            var mapPoint = MKMapPoint.FromCoordinate(coord2D);
+
+            foreach (IMKOverlay overlay in mapview.Overlays)
+            {
+                var renderer = (MKOverlayPathRenderer)mapview.RendererForOverlay(overlay);
+                if (renderer == null)
+                {
+                    return;
+                }
+
+                var polyTouched = renderer.Path.ContainsPoint(renderer.PointForMapPoint(mapPoint), true);
+
+                if (polyTouched)
+                {
+                    //Do something
+                }
+            }
         }
     }
 

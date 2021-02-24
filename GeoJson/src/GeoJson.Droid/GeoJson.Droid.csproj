@@ -74,6 +74,8 @@
     <Compile Include="Setup.cs" />
     <Compile Include="Views\MainActivity.cs" />
     <Compile Include="Views\SplashActivity.cs" />
+    <Compile Include="Renderers\MapViewRenderer.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProguardConfiguration Include="proguard.cfg" />
@@ -144,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -16,6 +16,7 @@ namespace GeoJson.UI.Controls
         public MapView()
         {
             IsShowingUser = true;
+            MoveToRegion(MapSpan.FromCenterAndRadius(new Position(51.2496206, 4.3570323), Distance.FromKilometers(7.5)));
         }
 
         public FeatureCollection Features

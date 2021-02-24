@@ -15,10 +15,15 @@ namespace GeoJson.Core.ViewModels.Home
 
         public FeatureCollection Features { get; private set; }
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
-            Features = _geoJsonService.GetJson();
-            return base.Initialize();
+            await base.Initialize();
+        }
+
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+            Task.Run(async () => { Features = await _geoJsonService.GetJson(); });
         }
     }
 }
